@@ -88,7 +88,7 @@ def printBudget():
 
 def getRemainingBudget():
     global object
-    print(object.getTotalSpent())
+    print(object.getRemainingBudget())
 
 def addExpense():
     global object

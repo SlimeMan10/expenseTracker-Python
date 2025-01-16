@@ -23,7 +23,11 @@ class tracker:
     
     def remove_expense(self, category, place):
         items = self.categories[category]
+        item = items[place]
+        cost = item['Cost']
+        self.amount_spent -= float(cost)
         del items[place]
+        
         
     def printAll(self):
         """Print all expenses in all categories."""
