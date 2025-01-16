@@ -118,7 +118,7 @@ def getCategory():
     while True:
         try:
             printCategories()
-            item = int(input("Choose a category (1-6): "))
+            item = int(input("Choose a category (1-6) or 0 to cancel: "))
             if item < 1 or item > 6:
                 raise ValueError
             break
@@ -143,7 +143,7 @@ def printCategories():
 #TODO
 def save():
     global object
-    name = input("What will your file name be")
+    name = input("What will your file name be: ")
     object.save(name)
 
 def updateBudget():

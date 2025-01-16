@@ -70,11 +70,11 @@ class tracker:
 
     def save(self, fileName):
         file = open(fileName, "w+")
-        file.write(f"Total Budget: {self.budget}")
-        file.write(f"Total Spent: {self.budget}")
-        file.write()
+        file.write(f"Total Budget: {self.budget} \n")
+        file.write(f"Total Spent: {self.budget} \n")
+        file.write("\n")
         for category in self.categories:
-            file.write(category)
+            file.write(f"{category}: \n")
             items = self.categories[category]
             if not items:
                 file.write("  Nothing in this category.")
@@ -83,7 +83,7 @@ class tracker:
                     if isinstance(item, dict):
                         key = item.get("Item", "Unknown")
                         value = item.get("Cost", "Unknown")
-                        file.write(f"  {i}. {key}: ${value}")
+                        file.write(f"  {i}. {key}: ${value} \n")
                     else:
                         file.write(f"  {i}. Malformed item: {item}")
 
