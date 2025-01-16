@@ -67,3 +67,23 @@ class tracker:
         lowerCaseItem = item.lower()
         self.categories[category].append({"Item": lowerCaseItem, "Cost": price})
         print(f"Added '{item}' (${price}) to category '{category}'.")
+
+    def save(self, fileName):
+        file = open(fileName, "w+")
+        file.write(f"Total Budget: {self.budget}")
+        file.write(f"Total Spent: {self.budget}")
+        file.write()
+        for category in self.categories:
+            file.write(category)
+            items = self.categories[category]
+            if not items:
+                file.write("  Nothing in this category.")
+            else:
+                for i, item in enumerate(items, 1):
+                    if isinstance(item, dict):
+                        key = item.get("Item", "Unknown")
+                        value = item.get("Cost", "Unknown")
+                        file.write(f"  {i}. {key}: ${value}")
+                    else:
+                        file.write(f"  {i}. Malformed item: {item}")
+

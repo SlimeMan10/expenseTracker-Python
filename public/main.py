@@ -140,8 +140,11 @@ def printCategories():
     print("5. Travel")
     print("6. Technology")
 
+#TODO
 def save():
-    print("Save functionality is in progress.")
+    global object
+    name = input("What will your file name be")
+    object.save(name)
 
 def updateBudget():
     global object
