@@ -94,20 +94,15 @@ class tracker:
 
     def upload(self, fileName):
         with open(fileName, "r") as file:
-            self._readTop(file, "budget") #We then want to read the total budget
-            self._readTop(file, "spent") #We then want to read the total spent
+            self._readTop(file, "budget", int) #We then want to read the total budget
+            self._readTop(file, "spent", float) #We then want to read the total spent
             file.readline() # skip the empty line after the total budget and spent
             self._readCategories(file) # now we want to read each category
-            #We then want to read each category
-           
-            #for loop to read each category
-                #inside each category we need to read each item and its cost
-                #check if it says "Nothing in this category" and if so, break the loop
 
-    def _readTop(self, file, part):
+    def _readTop(self, file, part, type):
         fileBudget = file.readline().strip().split(": ")
         #The split will look like this: ["Total Budget:", "number"]
-        setattr(self, part, int(fileBudget[1]))
+        setattr(self, part, type(fileBudget[1]))
 
     def _readCategories(self, file):
         #Get Category from file: food, transport, shopping, entertainment, travel, technology

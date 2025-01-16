@@ -1,0 +1,15 @@
+Total Budget: 50 
+Total Spent: 10.0 
+
+Category: food: 
+  Nothing in this category. 
+Category: transport: 
+  Nothing in this category. 
+Category: shopping: 
+  Nothing in this category. 
+Category: entertainment: 
+  Nothing in this category. 
+Category: travel: 
+  Nothing in this category. 
+Category: technology: 
+  1. styff: $10.0 

@@ -27,10 +27,10 @@ def init():
 #Assume that the file is valid and the user is giving it with the .txt extension
 def readFile():
     global object
-    name = input("What is the name of the file you want to load?: ")
-    object.upload(name)
+    object = tracker() # dummy to get it started
+    fileName = input("What is the name of the file you want to load?: ")
+    object.upload(fileName)
     print("Data loaded successfully!")
-    object = tracker(object.getBudget())
     start()
 
 def startNewBudget():
