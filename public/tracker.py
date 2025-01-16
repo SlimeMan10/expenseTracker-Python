@@ -71,13 +71,13 @@ class tracker:
     def save(self, fileName):
         file = open(fileName, "w+")
         file.write(f"Total Budget: {self.budget} \n")
-        file.write(f"Total Spent: {self.budget} \n")
+        file.write(f"Total Spent: {self.amount_spent} \n")
         file.write("\n")
         for category in self.categories:
-            file.write(f"{category}: \n")
+            file.write(f"Category: {category}: \n")
             items = self.categories[category]
             if not items:
-                file.write("  Nothing in this category.")
+                file.write("  Nothing in this category. \n")
             else:
                 for i, item in enumerate(items, 1):
                     if isinstance(item, dict):
@@ -86,4 +86,63 @@ class tracker:
                         file.write(f"  {i}. {key}: ${value} \n")
                     else:
                         file.write(f"  {i}. Malformed item: {item}")
+        file.close()
 
+    def upload(self, fileName):
+        with open(fileName, "r") as file:
+            self._readTop(file, "budget") #We then want to read the total budget
+            self._readTop(file, "spent") #We then want to read the total spent
+            file.readline() # skip the empty line after the total budget and spent
+            self._readCategories(file) # now we want to read each category
+            #We then want to read each category
+           
+            #for loop to read each category
+                #inside each category we need to read each item and its cost
+                #check if it says "Nothing in this category" and if so, break the loop
+
+    def _readTop(self, file, part):
+        fileBudget = file.readline().strip().split(": ")
+        #The split will look like this: ["Total Budget:", "number"]
+        setattr(self, part, int(fileBudget[1]))
+
+    def _readCategories(self, file):
+        #Get Category from file: food, transport, shopping, entertainment, travel, technology
+            #Inside category, get item and cost or break if it says "Nothing in this category"
+        while True:
+            line = file.readline()
+            if "food" in line:
+                self._readCategory(file, "food")
+            elif "transport" in line:
+                self._readCategory(file, "transport")
+            elif "shopping" in line:
+                self._readCategory(file, "shopping")
+            elif "entertainment" in line:
+                self._readCategory(file, "entertainment")
+            elif "travel" in line:
+                self._readCategory(file, "travel")
+            elif "technology" in line:
+                self._readCategory(file, "technology")
+            else:
+                break
+    
+    def _readCategory(self, file, category):
+        currentCategory = self.categories[category] = []
+        while True:
+            line = file.readline()
+            #check cases to break the loop
+            if "Nothing in this category." in line:
+                break
+            elif line.strip() == "":
+                break
+            #now we know its valid line elts break our current line
+            newLine = line.strip().split(": ") # breaks it into n. item $number
+            #break into into and cost
+            item = newLine[0].split(". ")[1]
+            cost = newLine[1].split("$")[1]
+            currentCategory.append({"Item": item, "Cost": cost})
+
+    def getBudget(self):
+        return self.budget
+    
+    def getRemainingBudget(self):
+        return self.budget - self.amount_spent

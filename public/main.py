@@ -1,7 +1,7 @@
 from tracker import tracker
 
 # Constants
-totalChoices = 6
+totalChoices = 8
 object = None  # Global tracker object
 
 # Entry Point
@@ -23,8 +23,15 @@ def init():
     else:
         startNewBudget()
 
+#TODO
+#Assume that the file is valid and the user is giving it with the .txt extension
 def readFile():
-    print("Functionality not implemented yet")
+    global object
+    name = input("What is the name of the file you want to load?: ")
+    object.upload(name)
+    print("Data loaded successfully!")
+    object = tracker(object.getBudget())
+    start()
 
 def startNewBudget():
     global object
@@ -70,6 +77,18 @@ def checkOptions(choice):
             save()
         case 6:
             updateBudget()
+        case 7:
+            printBudget()
+        case 8:
+            getRemainingBudget()
+
+def printBudget():
+    global object
+    print(object.getBudget())
+
+def getRemainingBudget():
+    global object
+    print(object.getTotalSpent())
 
 def addExpense():
     global object
@@ -167,6 +186,8 @@ def printOptions():
     print("4. Review a specific category")
     print("5. Save current tracker")
     print("6. Change budget")
+    print("7. View current budget")
+    print("8. View remaining budget")
     print("0. Exit")
 
 # Graceful exit for keyboard interrupt
